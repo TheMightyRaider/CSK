@@ -75,5 +75,62 @@ const csk = {
       })
       .every(item => item == true);
     return result;
+  },
+
+  camelCaseToSnakeCase(string) {
+    if (this.isCamelCase(string)) {
+      position = [];
+      inputAsArray = string.split("");
+      inputAsArray.forEach((item, index) => {
+        if (
+          index + 1 != inputAsArray.length &&
+          inputAsArray[index + 1] == inputAsArray[index + 1].toUpperCase()
+        ) {
+          inputAsArray[index + 1] = inputAsArray[index + 1].toLowerCase();
+          position.push(item);
+          position.push("_");
+          // return item;
+        } else {
+          position.push(item);
+        }
+      });
+      console.log(position.join(""));
+    } else {
+      console.log("Not in CamelCase Format");
+    }
+  },
+
+  kebabCaseToSnakeCase(string) {
+    if (this.isKebabCase(string)) {
+      const regex = /-/g;
+      snakecase = string.replace(regex, "_");
+      return snakecase;
+    } else {
+      return "Not in Kebab Format";
+    }
+  },
+
+  snakeCaseToCamelCase(string) {
+    if (this.isSnakeCase(string)) {
+      stringWithSpaces = string.replace(/-/g, " ");
+      camelCase = [];
+      stringAsArray = stringWithSpaces.split("");
+      stringAsArray.forEach((item, index) => {
+        if (item == "_") {
+          toUpper = stringAsArray[index + 1].toUpperCase();
+          camelCase.push(toUpper);
+        } else if (
+          camelCase.length > 1 &&
+          camelCase[index - 1].toLowerCase() == item
+        ) {
+          camelCase.push("");
+        } else {
+          camelCase.push(item);
+        }
+      });
+      return camelCase.join("").trim();
+    } else {
+      return "Not in Snake Format";
+    }
   }
 };
