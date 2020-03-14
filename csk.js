@@ -1,11 +1,15 @@
 const csk = {
-  isCamelCase(string) {
+  isCamelCase: string => {
     // format : first letter of each word in capital
     //condition:
     // Check for no spaces
     // Check for special character
+    if (typeof string != "string") {
+      return false;
+    }
 
     inputAsArray = string.split("");
+
     result = inputAsArray
       .map((item, index) => {
         if (index == 0) {
@@ -20,7 +24,10 @@ const csk = {
           } else {
             return true;
           }
-        } else if (item == item.toUpperCase()) {
+        } else if (
+          item.toLowerCase() != item.toUpperCase() &&
+          item == item.toUpperCase()
+        ) {
           if (
             inputAsArray[index + 1] == inputAsArray[index + 1].toUpperCase()
           ) {
@@ -34,15 +41,15 @@ const csk = {
           return false;
         }
       })
-      .every(item => item == true);
+      .every(item => item);
 
     return result;
   },
 
-  isSnakeCase(string) {
+  isSnakeCase: string => {
     inputAsArray = string.split("");
     result = inputAsArray
-      .map((item, index) => {
+      .map(item => {
         if (item == "_") {
           return true;
         } else if (item) {
@@ -58,7 +65,7 @@ const csk = {
     return result;
   },
 
-  isKebabCase(string) {
+  isKebabCase: string => {
     inputAsArray = string.split("");
     result = inputAsArray
       .map((item, index) => {
@@ -77,7 +84,7 @@ const csk = {
     return result;
   },
 
-  camelCaseToSnakeCase(string) {
+  camelCaseToSnakeCase: string => {
     if (this.isCamelCase(string)) {
       position = [];
       inputAsArray = string.split("");
@@ -100,7 +107,7 @@ const csk = {
     }
   },
 
-  kebabCaseToSnakeCase(string) {
+  kebabCaseToSnakeCase: string => {
     if (this.isKebabCase(string)) {
       const regex = /-/g;
       snakecase = string.replace(regex, "_");
@@ -110,7 +117,7 @@ const csk = {
     }
   },
 
-  snakeCaseToCamelCase(string) {
+  snakeCaseToCamelCase: string => {
     if (this.isSnakeCase(string)) {
       stringWithSpaces = string.replace(/-/g, " ");
       camelCase = [];
@@ -134,3 +141,5 @@ const csk = {
     }
   }
 };
+
+module.exports = csk;
